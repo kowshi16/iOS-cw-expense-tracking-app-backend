@@ -1,9 +1,14 @@
 const express = require('express');
-const Category = require('../models/category');
+const {Category, validateCategory} = require('../models/category');
 const router = express.Router();
 
 // POST - Create new category
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
+    const error = await validateCategory(req.body);
+    if (error.message) {
+        res.status(400).send(error.message);
+    }
+
     category = new Category({
         categoryTitle: req.body.categoryTitle
     });
