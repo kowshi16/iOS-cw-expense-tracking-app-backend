@@ -7,17 +7,17 @@ router.post('/create', async (req, res) => {
     const error = await validateCategory(req.body);
     if (error.message) {
         res.status(400).send(error.message);
+    } else {
+        category = new Category({
+            categoryTitle: req.body.categoryTitle
+        });
+    
+        category.save().then(category => {
+            res.send("Category created successfully");
+        }).catch(error => {
+            res.status(500).send("Error occurred while creating Category", error);
+        });
     }
-
-    category = new Category({
-        categoryTitle: req.body.categoryTitle
-    });
-
-    category.save().then(category => {
-        res.send("Category created successfully");
-    }).catch(error => {
-        res.status(500).send("Error occurred while creating Category", error);
-    });
 });
 
 // GET ALL - Category
