@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 // Routes
-app.use('/category/create-category', categoryRoute);
+app.use('/category', categoryRoute);
 
 // Connect to Mongo DB Atlas
 mongoose
