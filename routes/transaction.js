@@ -29,7 +29,7 @@ router.post('/create', async (req, res) => {
 
 // GET ALL - Transaction
 router.get("/get-all", (req, res) => {
-    Transaction.find()
+    Transaction.find().populate('category')
         .then((transaction) => res.send(transaction))
         .catch((error) => {
             res.status(500).json({ error: 'Internal Server Error' });
