@@ -43,7 +43,7 @@ router.get('/get-transaction', async (req, res) => {
     }
 
     try {
-        const transactions = await Transaction.find(query);
+        const transactions = await Transaction.find(query).populate('category');
         res.json(transactions);
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
