@@ -6,6 +6,7 @@ const app = express();
 require('dotenv').config();
 
 const categoryRoute = require('./routes/category');
+const transactionRoute = require('./routes/transaction');
 
 const PORT = process.env.PORT || 3000
 
@@ -15,6 +16,7 @@ app.use(express.urlencoded({extended:true}));
 
 // Routes
 app.use('/category', categoryRoute);
+app.use('/transaction', transactionRoute);
 
 // Connect to Mongo DB Atlas
 mongoose

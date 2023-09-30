@@ -13,9 +13,9 @@ router.post('/create', async (req, res) => {
         });
     
         category.save().then(category => {
-            res.send("Category created successfully");
+            res.json({ message: 'Category created successfully' });
         }).catch(error => {
-            res.status(500).send("Error occurred while creating Category", error);
+            res.status(500).json({ error: 'Error occurred while creating Category' });
         });
     }
 });
@@ -25,8 +25,15 @@ router.get("/get-all", (req, res) => {
     Category.find()
         .then((category) => res.send(category))
         .catch((error) => {
-            res.status(500).send("Something went wrong");
+            res.status(500).json({ error: 'Internal Server Error' });
         });
-})
+});
+
+// DELETE - Category
+router.delete('/delete/:categoryId', async (req, res) => {
+    const category = await Category.findByIdAndRemove(req.params.categoryId);
+    if (!category) res.status(404).json({ message: 'Category with that ID is not found' });
+    res.json({ message: 'Category deleted successfully' });
+});
 
 module.exports = router;
